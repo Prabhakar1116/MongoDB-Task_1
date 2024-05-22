@@ -1,0 +1,296 @@
+// For displaying the data inside the database we use:
+
+db.products.insertMany([
+    {
+        "id": "1",
+        "product_name": "Intelligent Fresh Chips",
+        "product_price": 655.00,
+        "product_material": "Concrete",
+        "product_color": "mint green"
+    },
+    {
+        "id": "2",
+        "product_name": "Practical Fresh Sausages",
+        "product_price": 911.0,
+        "product_material": "Cotton",
+        "product_color": "indigo"
+    },
+    {
+        "id": "3",
+        "product_name": "Refined Steel Car",
+        "product_price": 690.00,
+        "product_material": "Rubber",
+        "product_color": "gold"
+    },
+    {
+        "id": "4",
+        "product_name": "Gorgeous Plastic Pants",
+        "product_price": 492.00,
+        "product_material": "Soft",
+        "product_color": "plum"
+    },
+    {
+        "id": "5",
+        "product_name": "Sleek Cotton Chair",
+        "product_price": 33.00,
+        "product_material": "Fresh",
+        "product_color": "black"
+    }
+    // additional data can be added
+]);
+---------------------------------------------------------------------------------------------------------------
+1. Find all the information about each products
+
+db.products.find();
+
+It will display all the data inserted or already in the database
+
+{
+  _id: ObjectId('664d8c1b9e34427a61920959'),
+  id: '1',
+  product_name: 'Intelligent Fresh Chips',
+  product_price: 655,
+  product_material: 'Concrete',
+  product_color: 'mint green'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a6192095a'),
+  id: '2',
+  product_name: 'Practical Fresh Sausages',
+  product_price: 911,
+  product_material: 'Cotton',
+  product_color: 'indigo'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a6192095b'),
+  id: '3',
+  product_name: 'Refined Steel Car',
+  product_price: 690,
+  product_material: 'Rubber',
+  product_color: 'gold'
+}  
+
+// till all data is displayed
+
+------------------------------------------------------------------------------------------------------------------------
+2. Find the product price which are between 400 to 800
+
+db.products.find({product_price:{$gt:400,$lt:800}});
+
+{
+  _id: ObjectId('664d8c1b9e34427a61920959'),
+  id: '1',
+  product_name: 'Intelligent Fresh Chips',
+  product_price: 655,
+  product_material: 'Concrete',
+  product_color: 'mint green'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a6192095b'),
+  id: '3',
+  product_name: 'Refined Steel Car',
+  product_price: 690,
+  product_material: 'Rubber',
+  product_color: 'gold'
+}
+
+// and so on
+---------------------------------------------------------------------------------------------------------------------
+
+3. Find the product price which are not between 400 to 600
+
+db.products.find({product_price:{$not:{$gt:400,$lt:600}}});
+
+{
+  _id: ObjectId('664d8c1b9e34427a61920959'),
+  id: '1',
+  product_name: 'Intelligent Fresh Chips',
+  product_price: 655,
+  product_material: 'Concrete',
+  product_color: 'mint green'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a6192095a'),
+  id: '2',
+  product_name: 'Practical Fresh Sausages',
+  product_price: 911,
+  product_material: 'Cotton',
+  product_color: 'indigo'
+}
+
+// and so on
+----------------------------------------------------------------------------------------------------------------------
+
+4. List the four product which are greater than 500 in price
+
+db.products.find({product_price:{$gt:500}}).limit(4);
+
+{
+  _id: ObjectId('664d8c1b9e34427a61920959'),
+  id: '1',
+  product_name: 'Intelligent Fresh Chips',
+  product_price: 655,
+  product_material: 'Concrete',
+  product_color: 'mint green'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a6192095a'),
+  id: '2',
+  product_name: 'Practical Fresh Sausages',
+  product_price: 911,
+  product_material: 'Cotton',
+  product_color: 'indigo'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a6192095b'),
+  id: '3',
+  product_name: 'Refined Steel Car',
+  product_price: 690,
+  product_material: 'Rubber',
+  product_color: 'gold'
+}
+
+// since there are only 3 products whose products are higher than 500, it displays 3 instead of 4
+
+--------------------------------------------------------------------------------------------------------------
+
+5. Find the product name and product material of each products
+
+db.products.find({}, {product_name:1, product_material:1, _id:0})
+
+{
+  product_name: 'Intelligent Fresh Chips',
+  product_material: 'Concrete'
+}
+
+{
+  product_name: 'Practical Fresh Sausages',
+  product_material: 'Cotton'
+}
+
+{
+  product_name: 'Refined Steel Car',
+  product_material: 'Rubber'
+}
+
+// and so on
+
+---------------------------------------------------------------------------------------------------------------
+
+6. Find the product with a row id of 10
+
+db.products.findOne({"id":"10"})
+
+{
+  _id: ObjectId('664d8c1b9e34427a61920962'),
+  id: '10',
+  product_name: 'Generic Wooden Pizza',
+  product_price: 84,
+  product_material: 'Frozen',
+  product_color: 'indigo'
+}
+
+-----------------------------------------------------------------------------------------------------------------
+
+7. Find only the product name and product material.
+
+db.products.find({}, {product_name:1, product_material:1, _id:0})
+
+{
+  product_name: 'Intelligent Fresh Chips',
+  product_material: 'Concrete'
+}
+
+{
+  product_name: 'Practical Fresh Sausages',
+  product_material: 'Cotton'
+}
+
+{
+  product_name: 'Refined Steel Car',
+  product_material: 'Rubber'
+}
+
+// and so on
+
+------------------------------------------------------------------------------------------------------------------
+
+8. Find all products which contain the value of soft in product material
+
+db.products.find({ "product_material": "Soft" });
+
+{
+  _id: ObjectId('664d8c1b9e34427a6192095c'),
+  id: '4',
+  product_name: 'Gorgeous Plastic Pants',
+  product_price: 492,
+  product_material: 'Soft',
+  product_color: 'plum'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a61920961'),
+  id: '9',
+  product_name: 'Awesome Wooden Ball',
+  product_price: 28,
+  product_material: 'Soft',
+  product_color: 'azure'
+}
+
+{
+  _id: ObjectId('664d8c1b9e34427a61920963'),
+  id: '11',
+  product_name: 'Unbranded Wooden Cheese',
+  product_price: 26,
+  product_material: 'Soft',
+  product_color: 'black'
+}
+
+// and so on
+
+---------------------------------------------------------------------------------------------------------
+
+9. Find products which contain product color indigo and product price 492.00.
+
+db.products({ "product_color": "indigo", "product_price": 492.00 })
+
+[
+
+]
+
+// since there is no data that matches the specification, it displays empty Steel
+
+----------------------------------------------------------------------------------------------------------
+
+10. Delete the products which product price value are same
+
+db.products.aggregate([{$group:{_id:'$product_price',count:{$sum:1}}}, {$match: {count : {$gt: 1}}}]).forEach((e) => {db.products.deleteMany({product_price: e._id})});
+
+_id: 664d8c1b9e34427a61920966
+id :"14"
+product_name: "Incredible Steel Shirt"
+product_price: 54
+product_material: "Metal"
+product_color: "white"
+_id: 664d8c1b9e34427a61920967
+id :"15"
+product_name: "Ergonomic Cotton Hat"
+product_price: 43
+product_material: "Rubber"
+product_color: "mint green"
+_id: 664d8c1b9e34427a6192096a
+id :"18"
+product_name: "Licensed Plastic Bacon"
+product_price: 88
+product_material: "Steel"
+product_color: "yellow"
+
+//As you can see id 16 & 17 which are of same value are missing
+
+-----------------------------------------------------------------------------------------------------
